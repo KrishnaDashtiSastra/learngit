@@ -9,19 +9,20 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://localhost:3306/aliens";
-        String user = "root";
-        String pass = "2022";
-        String query = "select name from Student";
-        Connection con = DriverManager.getConnection(url, user, pass);
+
+        Connection con = DriverManager.getConnection(url, "root", "2022");
         Statement st = con.createStatement();
+
         int count = st.executeUpdate("insert into Student values('Rahul',1,'chennai')");
         System.out.println(count + " rows affected");
-        ResultSet rs = st.executeQuery(query);
+        
+        ResultSet rs = st.executeQuery("select name from Student");
         while(rs.next()){
             String name = rs.getString("name");
             System.out.println(name);
         }
-
+        st.close();
+        con.close();
 
     }
 }
